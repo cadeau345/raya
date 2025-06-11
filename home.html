@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>تسجيل الدخول - معهد راية</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    >
+
+
+    <!-- Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth-compat.js"></script>
+</head>
+
+<body class="bg-gray-100 text-right">
+
+
+    <div class="flex items-center justify-center h-full backdrop-blur-sm bg-black/50">
+        <!-- هنا تحط نموذج تسجيل الدخول -->
+    </div>
+</body>
+
+<div class="flex items-center justify-center h-full backdrop-blur-sm bg-black/50">
+    <!-- هنا تحط نموذج تسجيل الدخول -->
+</div>
+<!-- مكتبات Firebase -->
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+
+<!-- ملف إعدادات Firebase الخاص بك -->
+<script src="firebase-config.js"></script>
+
+</body>
+
+
+
+<head>
+    <meta charset="UTF-8" />
+    <title>لوحة التحكم</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+
+<body class="bg-gray-100 min-h-screen">
+    <script>
+        function logout() {
+            firebase.auth().signOut().then(() => {
+                window.location.href = "login.html";
+            }).catch((error) => {
+                console.error("خطأ عند تسجيل الخروج:", error);
+            });
+        }
+    </script>
+
+
+
+
+    <main class="p-6">
+        <main class="p-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+
+            <!-- بطاقة المحاضرات -->
+            <a href="lectures.html" class="block border rounded-xl overflow-hidden shadow hover:shadow-lg transition">
+                <img src="lectures.jpg" alt="صفحة المحاضرات" class="w-full h-48 object-cover">
+                <div class="p-4 text-center font-bold text-gray-700">المحاضرات</div>
+            </a>
+
+            <!-- بطاقة الحضور -->
+            <a href="attendence.html" class="block border rounded-xl overflow-hidden shadow hover:shadow-lg transition">
+                <img src="attend.jpg" alt="صفحة الحضور" class="w-full h-48 object-cover">
+                <div class="p-4 text-center font-bold text-gray-700">الحضور</div>
+            </a>
+
+            <!-- بطاقة اتصل بنا -->
+            <a href="contact.html" class="block border rounded-xl overflow-hidden shadow hover:shadow-lg transition">
+                <img src="contact.jpg" alt="اتصل بنا" class="w-full h-48 object-cover">
+                <div class="p-4 text-center font-bold text-gray-700">اتصل بنا</div>
+            </a>
+            <a href="login.html" class="block border rounded-xl overflow-hidden shadow hover:shadow-lg transition">
+                <img src="logout.jpg" alt="اتصل بنا" class="w-full h-48 object-cover">
+                <div class="p-4 text-center font-bold text-gray-700">تسجيل الخروج</div>
+            </a>
+
+        </main>
+
+
+
+        <!-- الحماية وتسجيل الخروج -->
+        <script>
+            auth.onAuthStateChanged(user => {
+                if (!user) {
+                    window.location.href = "login.html";
+                }
+            });
+
+            // تسجيل الخروج
+            function logout() {
+                auth.signOut().then(() => {
+                    window.location.href = "login.html";
+                }).catch((error) => {
+                    alert("حدث خطأ أثناء تسجيل الخروج: " + error.message);
+                });
+            }
+            firebase.auth().onAuthStateChanged(user => {
+                if (user) {
+                    if (!user.emailVerified) {
+                        alert("يرجى تفعيل بريدك الإلكتروني أولاً.");
+                        firebase.auth().signOut().then(() => {
+                            window.location.href = "login.html";
+                        });
+                    }
+                } else {
+                    window.location.href = "login.html";
+                }
+            });
+        </script>
+        <script>
+            function logout() {
+                firebase.auth().signOut()
+                    .then(() => {
+                        window.location.href = "login.html";
+                    })
+                    .catch((error) => {
+                        alert("حدث خطأ أثناء تسجيل الخروج: " + error.message);
+                    });
+            }
+        </script>
+        <!-- مكتبات Firebase -->
+        <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+
+        <!-- ملف إعدادات Firebase الخاص بك -->
+        <script src="firebase-config.js"></script>
+
+
+        <!-- قائمة الدكاترة -->
+        <div class="mt-16 px-4">
+            <h3 class="text-xl font-bold mb-6 text-center text-blue-800">الدكاترة</h3>
+            <div class="flex justify-center gap-4 flex-wrap">
+                <!-- دكتور محمد -->
+                <div class="bg-white shadow rounded-xl p-4 w-72 text-center">
+                    <img src="ddd_files/basiony.jpg" د. محمد محمد رفعت " class="w-28 h-28 mx-auto rounded-full mb-4 ">
+        <h4 class="font-bold text-lg ">د. محمد محمد رفعت البسيوني</h4>
+        <p class="text-blue-600 text-sm ">رئيس جامعة دمياط الأسبق</p>
+        <p class="text-sm mt-1 ">أستاذ متفرغ – حاسب ونظم معلومات</p>
+      </div>
+      <!-- دكتور سمير -->
+      <div class="bg-white shadow rounded-xl p-4 w-72 text-center ">
+        <img src="ddd_files/samir.jpg "د. سمير عبدالموجود" class="w-28 h-28 mx-auto rounded-full mb-4">
+                    <h4 class="font-bold text-lg">د. سمير عبدالموجود محمد</h4>
+                    <p class="text-blue-600 text-sm">أستاذ مساعد</p>
+                    <p class="text-sm mt-1">حاسب ونظم معلومات</p>
+                </div>
+            </div>
+        </div>
+        <!-- الطلاب القائمين على المشروع -->
+        <div class="mt-20 px-4">
+            <h3 class="text-xl font-bold mb-6 text-center text-green-700">الطلاب القائمين على المشروع</h3>
+            <div class="flex justify-center gap-4 flex-wrap">
+
+                <!-- الطالب أحمد سيد محمد -->
+                <div class="bg-white shadow rounded-xl p-4 w-60 text-center">
+                    <img src="ddd_files/tahan.jpg" أحمد سيد محمد " class="w-24 h-24 mx-auto rounded-full mb-3 ">
+                <h4 class="font-bold text-base ">الطالب أحمد سيد محمد</h4>
+            </div>
+
+            <!-- الطالب أحمد خلف الله -->
+            <div class="bg-white shadow rounded-xl p-4 w-60 text-center ">
+                <img src="ddd_files/khalaf.jpg " class="w-24 h-24 mx-auto rounded-full mb-3 ">
+                <h4 class="font-bold text-base ">الطالب أحمد خلف الله</h4>
+            </div>
+
+            <!-- الطالب أحمد النشاقي -->
+            <div class="bg-white shadow rounded-xl p-4 w-60 text-center ">
+                <img src="mohamed elshenawy.jpg " alt="احمد محمد الشناوي " class="w-24 h-24 mx-auto rounded-full mb-3 ">
+                <h4 class="font-bold text-base ">احمد محمد الشناوي</h4>
+            </div>
+
+            <!-- الطالب أحمد عبدالباسط -->
+            <div class="bg-white shadow rounded-xl p-4 w-60 text-center ">
+                <img src="abdelbaset.jpg " alt="أحمد عبدالباسط " class="w-24 h-24 mx-auto rounded-full mb-3 ">
+                <h4 class="font-bold text-base ">الطالب أحمد عبدالباسط</h4>
+            </div>
+
+            <!-- الطالب أحمد عبدالوهاب -->
+            <div class="bg-white shadow rounded-xl p-4 w-60 text-center ">
+                <img src="abdelsalam.jpg " alt="احمد عبدالسلام " class="w-24 h-24 mx-auto rounded-full mb-3 ">
+                <h4 class="font-bold text-base ">الطالب أحمد عبدالسلام</h4>
+            </div>
+
+        </div>
+    </div>
+
+
+    <!-- Firebase config -->
+    <script>
+        const firebaseConfig = {
+            apiKey: "YOUR_API_KEY ",
+            authDomain: "YOUR_PROJECT_ID.firebaseapp.com ",
+            projectId: "YOUR_PROJECT_ID ",
+            storageBucket: "YOUR_PROJECT_ID.appspot.com ",
+            messagingSenderId: "YOUR_SENDER_ID ",
+            appId: "YOUR_APP_ID "
+        };
+
+        firebase.initializeApp(firebaseConfig);
+
+        function login() {
+            const email = document.getElementById("email ").value;
+            const password = document.getElementById("password ").value;
+            const errorElement = document.getElementById("error ");
+
+            firebase.auth().signInWithEmailAndPassword(email, password)
+                .then((userCredential) => {
+                    window.location.href = "dashboard.html "; // وجه المستخدم بعد تسجيل الدخول
+                })
+                .catch((error) => {
+                    errorElement.textContent = "البريد الإلكتروني أو كلمة المرور غير صحيحة. ";
+                });
+        }
+    </script>
+  <script>
+  function logout() {
+    firebase.auth().signOut()
+      .then(() => {
+        window.location.href = "login.html ";
+      })
+      .catch((error) => {
+        alert("حدث خطأ أثناء تسجيل الخروج: " + error.message);
+      });
+  }
+</script>
+  
+
+</body>
+
+
+</html>

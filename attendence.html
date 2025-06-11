@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ar">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>تسجيل الحضور - معهد راية</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+</head>
+
+<body class="bg-blue-50 flex items-center justify-center min-h-screen" style="direction: rtl;">
+    <div class="bg-white p-6 rounded-xl shadow-md w-full max-w-md text-center">
+        <h1 class="text-xl font-bold mb-4">📅 تسجيل الحضور</h1>
+        <input id="lecture" placeholder="اسم المحاضرة" class="w-full mb-4 p-2 border rounded" />
+        <button onclick="markAttendance()" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded w-full">سجّل الحضور</button>
+    </div>
+
+    <!-- Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js"></script>
+
+    <script>
+        // إعداد Firebase
+        const firebaseConfig = {
+            apiKey: "AIzaSyD0IAstH4zer5RkzJuQhPALX0UVnPotPDA",
+            authDomain: "raya-ahmed.firebaseapp.com",
+            projectId: "raya-ahmed",
+            storageBucket: "raya-ahmed.appspot.com",
+            messagingSenderId: "408257613174",
+            appId: "1:408257613174:web:57a6e4631b9866416cfe57",
+        };
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+
+        function markAttendance() {
+            const lectureName = document.getElementById("lecture").value;
+            const user = firebase.auth().currentUser;
+
+            if (!user) {
+                alert("❌ يجب تسجيل الدخول أولًا");
+                return;
+            }
+
+            const userId = user.uid;
+            const attendanceRef = db.collection("attendance").doc(userId);
+            const recordRef = attendanceRef.collection("records").doc();
+
+            const recordData = {
+                date: new Date().toISOString().split('T')[0],
+                lecture: lectureName,
+                status: "حضر",
+                time: new Date().toLocaleTimeString('ar-EG')
+            };
+
+            attendanceRef.set({
+                name: user.displayName || "طالب",
+                email: user.email
+            }, {
+                merge: true
+            });
+
+            recordRef.set(recordData)
+                .then(() => alert("✅ تم تسجيل الحضور بنجاح"))
+                .catch(error => alert("❌ خطأ في التسجيل: " + error.message));
+        }
+    </script>
+</body>
+
+</html>

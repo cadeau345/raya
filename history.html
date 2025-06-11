@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>سجل الحضور - معهد راية</title>
+
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <link rel="stylesheet" href="style.css" />
+    <style>
+        body {
+            background-color: #f1f5f9;
+            font-family: 'Tajawal', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .container {
+            max-width: 700px;
+            margin: 60px auto;
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        
+        h1 {
+            margin-bottom: 30px;
+            font-size: 26px;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 30px;
+        }
+        
+        th,
+        td {
+            padding: 15px;
+            border-bottom: 1px solid #eee;
+            font-size: 16px;
+        }
+        
+        th {
+            background-color: #f0f0f0;
+        }
+        
+        .btn {
+            background-color: #1e90ff;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            text-decoration: none;
+        }
+        
+        .btn:hover {
+            background-color: #007acc;
+        }
+        
+        .empty-message {
+            color: #999;
+            font-size: 17px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <h1>📅 سجل الحضور</h1>
+        <table id="attendance-table" style="display: none;">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>التاريخ</th>
+                    <th>الوقت</th>
+                </tr>
+            </thead>
+            <tbody id="attendance-body"></tbody>
+        </table>
+        <p id="no-records" class="empty-message">لا يوجد حضور مسجل.</p>
+        <a href="dashboard.html" class="btn">العودة للوحة التحكم</a>
+    </div>
+    <script>
+        const records = JSON.parse(localStorage.getItem("attendance")) || [];
+        const table = document.getElementById("attendance-table");
+        const body = document.getElementById("attendance-body");
+        const noRecords = document.getElementById("no-records");
+
+        if (records.length > 0) {
+            table.style.display = "table";
+            noRecords.style.display = "none";
+
+            records.forEach((record, index) => {
+                        const row = document.createElement("tr");
+                        const [date, time] = record.split("،");
+                        row.innerHTML = `
+          <td>${index + 1}</td>
+          <!-- مكتبات Firebase -->
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js">
+    </script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+
+    <!-- ملف إعدادات Firebase الخاص بك -->
+    <script src="firebase-config.js"></script>
+
+</body>
+<nav class="bg-gray-800 text-white px-6 py-4 flex justify-between items-center">
+    <div class="text-xl font-bold">معهد راية</div>
+
+    <div class="space-x-4 rtl:space-x-reverse">
+        <a href="dashboard.html" class="hover:text-yellow-300">لوحة التحكم</a>
+        <a href="lectures.html" class="hover:text-yellow-300">المحاضرات</a>
+        <a href="attendance.html" class="hover:text-yellow-300">الحضور</a>
+        <a href="contact.html" class="hover:text-yellow-300">اتصل بنا</a>
+        <button onclick="logout()" class="bg-red-600 hover:bg-red-700 px-3 py-1 rounded">
+        تسجيل الخروج
+      </button>
+    </div>
+</nav>
+
+</html>

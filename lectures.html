@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>المحاضرات</title>
+
+
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-50 min-h-screen font-sans">
+    <header class="bg-blue-700 text-white py-4">
+        <h1 class="text-3xl text-center font-bold">المحاضرات</h1>
+    </header>
+
+    <main class="p-6 max-w-6xl mx-auto">
+        <div class="grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+            <!-- محاضرة -->
+            <div class="bg-white rounded-lg shadow p-5">
+                <h2 class="text-xl font-semibold text-blue-800 mb-2">محاضرة 1: مقدمة في البرمجة</h2>
+                <p class="text-sm text-gray-500 mb-4">تاريخ: 5 يونيو 2025</p>
+                <a href="https://youtu.be/2cxpi8rhhKg?si=a_Zvs7R8MOklbpnv-800">مشاهدة / تحميل</a>
+            </div>
+
+            <!-- محاضرة -->
+            <div class="bg-white rounded-lg shadow p-5">
+                <h2 class="text-xl font-semibold text-blue-800 mb-2">محاضرة 2: الأمن السيبراني</h2>
+                <p class="text-sm text-gray-500 mb-4">تاريخ: 8 يونيو 2025</p>
+                <a href="https://youtu.be/Asxu8gO1Jt4?si=zVE-MwKgsst9Wpe7-800">مشاهدة / تحميل</a>
+            </div>
+
+            <!-- محاضرة -->
+            <div class="bg-white rounded-lg shadow p-5">
+                <h2 class="text-xl font-semibold text-blue-800 mb-2">محاضرة 3: تصميم مواقع باستخدام Tailwind</h2>
+                <p class="text-sm text-gray-500 mb-4">تاريخ: 10 يونيو 2025</p>
+                <a href="https://youtu.be/9Px2cwdQ8PM?si=7ESBD6LGVgJ7nxnI-800">مشاهدة / تحميل</a>
+            </div>
+        </div>
+    </main>
+    <script>
+        function logout() {
+            firebase.auth().signOut()
+                .then(() => {
+                    window.location.href = "login.html";
+                })
+                .catch((error) => {
+                    alert("حدث خطأ أثناء تسجيل الخروج: " + error.message);
+                });
+        }
+    </script>
+    <!-- مكتبات Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+
+    <!-- ملف إعدادات Firebase الخاص بك -->
+    <script src="firebase-config.js"></script>
+
+</body>
+<nav class="bg-gray-800 text-white px-6 py-4 flex justify-between items-center">
+    <div class="text-xl font-bold">معهد راية</div>
+
+    <div class="space-x-4 rtl:space-x-reverse">
+        <a href="home.html" class="hover:text-yellow-300">الصفحة الرئيسية</a>
+        <a href="lectures.html" class="hover:text-yellow-300">المحاضرات</a>
+        <a href="attendence.html" class="hover:text-yellow-300">الحضور</a>
+        <a href="contact.html" class="hover:text-yellow-300">اتصل بنا</a>
+        <button onclick="logout()" class="bg-red-600 hover:bg-red-700 px-3 py-1 rounded">
+        تسجيل الخروج
+      </button>
+    </div>
+</nav>
+
+</html>

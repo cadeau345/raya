@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ar">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>تسجيل الدخول - معهد راية</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+</head>
+
+<body class="bg-cover bg-center min-h-screen flex items-center justify-center" style="background-image: url('main2.jpg'); direction: rtl;">
+    <div class="bg-white bg-opacity-90 p-8 rounded-xl shadow-lg w-full max-w-md text-center">
+        <h1 class="text-2xl font-bold mb-6">🔐 تسجيل الدخول</h1>
+
+        <input type="email" id="email" placeholder="البريد الإلكتروني" class="mb-4 w-full p-3 rounded border" />
+        <input type="password" id="password" placeholder="كلمة المرور" class="mb-4 w-full p-3 rounded border" />
+
+        <button onclick="login()" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-full">
+        تسجيل الدخول
+    </button>
+
+        <p class="mt-4 text-sm">ليس لديك حساب؟
+            <a href="index.html" class="text-green-700 font-semibold hover:underline">انضم إلينا</a>
+        </p>
+
+        <!-- زر نسيت كلمة المرور -->
+        <p class="mt-2 text-sm">
+            <a href="restpassword.html" class="text-red-600 font-semibold hover:underline">هل نسيت كلمة المرور؟</a>
+        </p>
+    </div>
+
+
+    <script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-auth-compat.js"></script>
+
+    <script>
+        const firebaseConfig = {
+            apiKey: "AIzaSyD0IAstH4zer5RkzJuQhPALX0UVnPotPDA",
+            authDomain: "raya-ahmed.firebaseapp.com",
+            projectId: "raya-ahmed",
+            storageBucket: "raya-ahmed.appspot.com",
+            messagingSenderId: "408257613174",
+            appId: "1:408257613174:web:57a6e4631b9866416cfe57"
+        };
+
+
+        // تهيئة Firebase
+        firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+
+        // تسجيل الدخول
+        function login() {
+            const email = document.getElementById("email").value.trim();
+            const password = document.getElementById("password").value;
+
+            auth.signInWithEmailAndPassword(email, password)
+                .then((userCredential) => {
+                    const user = userCredential.user;
+
+                    if (!user.emailVerified) {
+                        alert("❗ يرجى تفعيل بريدك الإلكتروني أولاً.");
+                        return;
+                    }
+
+                    alert("✅ تم تسجيل الدخول بنجاح!");
+                    window.location.href = "home.html"; // اسم الصفحة اللي تروح لها بعد الدخول
+                })
+                .catch((error) => {
+                    if (error.code === 'auth/user-not-found') {
+                        alert("❌ المستخدم غير موجود.");
+                    } else if (error.code === 'auth/wrong-password') {
+                        alert("❌ كلمة المرور غير صحيحة.");
+                    } else {
+                        alert("❌ " + error.message);
+                    }
+                });
+        }
+    </script>
+
+</body>
+
+</html>

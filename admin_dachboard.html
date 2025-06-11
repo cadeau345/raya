@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>لوحة المشرف - معهد راية</title>
+
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <link rel="stylesheet" href="style.css" />
+    <style>
+        body {
+            background-color: #f1f5f9;
+            font-family: 'Tajawal', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 50px auto;
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        
+        h1 {
+            margin-bottom: 30px;
+            font-size: 26px;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 30px;
+        }
+        
+        th,
+        td {
+            padding: 15px;
+            border-bottom: 1px solid #eee;
+            font-size: 16px;
+        }
+        
+        th {
+            background-color: #f0f0f0;
+        }
+        
+        .btn {
+            background-color: #1e90ff;
+            color: white;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            text-decoration: none;
+        }
+        
+        .btn:hover {
+            background-color: #007acc;
+        }
+        
+        .back-btn {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <h1>📋 لوحة تحكم المشرف</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>اسم الطالب</th>
+                    <th>البريد الإلكتروني</th>
+                    <th>إجراءات</th>
+                </tr>
+            </thead>
+            <tbody id="student-table">
+                <!-- يتم تعبئته ديناميكيًا -->
+            </tbody>
+        </table>
+
+        <a href="dashboard.html" class="btn back-btn">العودة للوحة التحكم</a>
+    </div>
+    <script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js"></script>
+    <form onsubmit="addStudent(event)" class="space-y-4 bg-white p-4 rounded shadow w-80">
+        <h2 class="text-lg font-bold">إضافة طالب جديد</h2>
+        <input type="text" id="name" placeholder="اسم الطالب" class="border p-2 w-full rounded" required>
+        <input type="email" id="email" placeholder="البريد الإلكتروني" class="border p-2 w-full rounded" required>
+        <button type="submit" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-800">حفظ</button>
+    </form>
+    <!-- Firebase Scripts -->
+    <script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js"></script>
+    <script src="firebase.js"></script>
+
+    <!-- سكريبت تخزين بيانات الطالب -->
+    <script>
+        function addStudent(event) {
+            event.preventDefault();
+            const name = document.getElementById("name").value;
+            const email = document.getElementById("email").value;
+
+            db.collection("students").add({
+                name: name,
+                email: email,
+                createdAt: firebase.firestore.FieldValue.serverTimestamp()
+            }).then(() => {
+                alert("تم حفظ الطالب بنجاح ✅");
+                document.getElementById("name").value = "";
+                document.getElementById("email").value = "";
+            }).catch((error) => {
+                alert("حدث خطأ أثناء الحفظ: " + error.message);
+            });
+        }
+    </script>
+
+
+
+
+    <script>
+        // بيانات طلاب وهمية - تقدر تستبدلها من قاعدة بيانات لاحقًا
+        const students = [{
+            name: "عبدالله محمد",
+            email: "abdallah@example.com"
+        }, {
+            name: "سارة أحمد",
+            email: "sara@example.com"
+        }, {
+            name: "أحمد علي",
+            email: "ahmed@example.com"
+        }];
+
+        const tableBody = document.getElementById("student-table");
+
+        students.forEach((student, index) => {
+            const row = document.createElement("tr");
+            row.innerHTML = `
+        <td>${index + 1}</td>
+        <td>${student.name}</td>
+        <td>${student.email}</td>
+        <td><button class="btn" onclick="viewAttendance('${student.name}')">عرض السجل</button></td>
+      `;
+            tableBody.appendChild(row);
+        });
+
+        function viewAttendance(name) {
+            alert("👀 سيتم فتح سجل الحضور للطالب: " + name + " (ميزة لاحقة)");
+            // هنا لاحقًا ممكن نفتح صفحة مخصصة لهذا الطالب مع سجل حضوره
+        }
+    </script>
+    <!-- مكتبات Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+
+    <!-- ملف إعدادات Firebase الخاص بك -->
+    <script src="firebase-config.js"></script>
+
+</body>
+
+</html>
